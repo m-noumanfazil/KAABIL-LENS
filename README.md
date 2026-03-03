@@ -214,7 +214,7 @@ Each candidate includes an expandable section for:
    * Add the following line:
 
      ```env
-     GROQ_API_KEY=your_copied_api_key_here
+     GROQ_API_KEY="your_copied_api_key_here"
      ```
 
 5. **Run the project (backend + frontend together):**
