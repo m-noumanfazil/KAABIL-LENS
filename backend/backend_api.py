@@ -1,3 +1,5 @@
+#0xb800.Venom Mustafa
+
 from fastapi import FastAPI, File, Form, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from classes import ResumeRankingSystem, JobDescription
@@ -6,19 +8,19 @@ from typing import List
 
 app = FastAPI(title="Smart Resume Filter API")
 
-# ------------------- CORS -------------------
+#CORS 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:3001"],  # your Next.js frontend
+    allow_origins=["http://localhost:3000", "http://localhost:3001"],  # brigding kari
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# ------------------- Global System -------------------
+#Global instance
 system = ResumeRankingSystem()
 current_job: JobDescription | None = None
 
-# ------------------- Analyze Job Description -------------------
+#Analyze Job Description
 @app.post("/analyze-job")
 async def analyze_job(jd_text: str = Form(...)):
     global system, current_job
@@ -31,7 +33,7 @@ async def analyze_job(jd_text: str = Form(...)):
         "required_experience": current_job.required_experience,
     }
 
-# ------------------- Upload Resumes -------------------
+# Upload Resumes
 @app.post("/upload-resumes")
 async def upload_resumes(files: List[UploadFile] = File(...)):
     if current_job is None:
@@ -41,17 +43,17 @@ async def upload_resumes(files: List[UploadFile] = File(...)):
 
     # Save uploaded resumes temporarily
     for file in files:
-        path = f"{file.filename}"
+        path = f"{file.filename}"# yaha temp.name bypass
         with open(path, "wb") as f:
             f.write(await file.read())
         temp_paths.append(path)
 
     # Process resumes
-    system.resumes = []  # reset
+    system.resumes = []  # start over
     system.process_resumes(temp_paths)
     system.calculate_scores()
 
-    # Cleanup temp files
+    # Clean temp files
     for path in temp_paths:
         os.remove(path)
 

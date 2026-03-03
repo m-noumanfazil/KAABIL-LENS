@@ -1,3 +1,6 @@
+// 0xb800.Venom Mustafa
+
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -183,7 +186,7 @@ export default function HomePage() {
             {/* Logo */}
             <div className="h-20 w-40 relative">
               <Image 
-                src="/logo1.png" 
+                src="/logo.png" 
                 alt="Kaabil Lens Logo" 
                 width={300} 
                 height={300}

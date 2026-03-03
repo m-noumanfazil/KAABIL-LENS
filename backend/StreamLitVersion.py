@@ -1,3 +1,4 @@
+#stresmlit testing main.py
 # classes.py
 # classes.py
 # classes.py
@@ -11,7 +12,7 @@ from groq import Groq
 from dotenv import load_dotenv
 import json
 import fitz
-# load gok api from .env file
+# load groq api from .env file
 load_dotenv()
 
 CANONICAL_MAP = {
@@ -24,7 +25,7 @@ CANONICAL_MAP = {
     "py": "python"
 }
 
-def normalize_skill(skill):
+def normalize_skill(skill):# normalization rules can be made more
     skill = skill.lower().strip()
 
     # Remove dots (node.js → nodejs)
@@ -61,7 +62,7 @@ class JobDescription:
     def process_text(self, raw_text: str):
         self.raw_text = raw_text.strip()
         if not self.raw_text:
-            print("❌ No Job Description text provided.")
+            print("No Job Description text provided.")
             self.skills = []
             self.required_experience = 0.0
             return
@@ -101,17 +102,22 @@ class JobDescription:
                 ],
                 reasoning_effort="none"
             )
+
             output_text = response.choices[0].message.content.strip()
             result = json.loads(output_text)
+
             skills = result.get("skills", [])
             experience = result.get("experience_years", 0)
+
             if not isinstance(skills, list):
                 skills = []
 
             if not isinstance(experience, (int, float)):
                 experience = 0
+
             self.skills = [canonicalize_skill(normalize_skill(s)) for s in skills]
             self.required_experience = round(float(experience), 1)
+
             print("Job Description processed successfully!")
             print("Extracted skills:", self.skills)
             print("Required experience (years):", self.required_experience)
@@ -119,15 +125,17 @@ class JobDescription:
             print("Error processing Job Description:", str(e))
             self.skills = []
             self.required_experience = 0
+       
+
 class Resume:
     def __init__(self, name, skills, experience):
         self.name = name
         self.skills = skills
         self.experience = experience
         self.score = 0.0
-        self.skill_match_pct = 0.0  #init
-        self.exp_score_pct = 0.0    # \\
-        #transparency fields
+        self.skill_match_pct = 0.0  
+        self.exp_score_pct = 0.0    
+
         self.matched_skills = []
         self.missing_skills = []
 
@@ -150,7 +158,7 @@ class ResumeRankingSystem:
                 continue
         
             try:
-                #naam ka fitz dhoka nhi pymupdf real hai
+                # Extract text from PDF
                 doc = fitz.open(path)
                 text = ""
                 for page in doc:
@@ -176,7 +184,6 @@ class ResumeRankingSystem:
                         Resume text:
                     \"\"\"{text_clean}\"\"\"
                     """
-        
                 response = self.job.client.chat.completions.create(
                     model="qwen/qwen3-32b",
                     temperature=0,
@@ -193,31 +200,35 @@ class ResumeRankingSystem:
         
                 if not output_text.startswith("{"):
                     raise ValueError("AI output is not valid JSON. Check the model response.")
+        
                 result = json.loads(output_text)
+        
                 skills = [canonicalize_skill(normalize_skill(s)) for s in result.get("skills", [])]
                 experience = result.get("experience_years", 0)
                 try:
                     experience = round(float(experience), 1)
                 except:
                     experience = 0.0
+        
                 resume_name = os.path.basename(path)
                 self.resumes.append(
                     Resume(name=resume_name, skills=skills, experience=experience)
                 )
-                print(f"Processed:{resume_name}")
+        
+                print(f"Processed: {resume_name}")
                 print(f"Skills: {skills}")
-                print(f"Experience:{experience} years")
+                print(f"Experience: {experience} years")
         
             except Exception as e:
                 print(f"Error processing {path}: {e}")
-    #Inside ResumeRankingSystem class
+    # Inside ResumeRankingSystem class
 
     def calculate_scores(self):
         if self.job is None:
             raise ValueError("Please insert a Job Description first!")
     
         if not self.resumes:
-            raise ValueError("Resume to daalo pehle!")
+            raise ValueError("No resumes to score!")
     
         for resume in self.resumes:
             required_skills = set(self.job.skills)
@@ -257,7 +268,8 @@ class ResumeRankingSystem:
         if not self.resumes:
             print("No resumes to display!")
             return
-        print("\n---Ranked Candidates---")
+    
+        print("\n--- Ranked Candidates ---")
         for i, r in enumerate(self.resumes):
             print(f"{i+1}. {r.name} | Final Score: {r.score} | Skill Match: {r.skill_match_pct}% | Experience: {r.exp_score_pct}%")
             print(f"   Matched Skills: {r.matched_skills}")
@@ -266,4 +278,4 @@ class ResumeRankingSystem:
     def reset_system(self):
         self.job = None
         self.resumes = []
-        print("System reset:Job Description and all resumes cleared.")
+        print("System reset: Job Description and all resumes cleared.")

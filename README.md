@@ -7,6 +7,16 @@
 
 ## 📌 Problem Understanding
 
+## Made By
+
+---
+
+1. **Mustafa Ahmed Siddiqui** – Cyber & AI enthusiast, ( Black + White ) Hat / 2 Hacker, Competitive Programmer, Solution Expert , Electro-Tech Guru.  
+   [LinkedIn](https://www.linkedin.com/in/mustafa-ahmed-venomdev421)
+
+2. **Nouman Fazil** – AI Enthusiastic, Dedicated Automation Expert, Jigri  
+   [LinkedIn](https://www.linkedin.com/in/nouman-fazil-a91478327/)
+
 Recruiters, HR teams, and university placement cells often face the following challenges:
 
 1. **Time-consuming manual resume screening** – Reviewing dozens or hundreds of resumes is tedious.
@@ -172,14 +182,14 @@ Each candidate includes an expandable section for:
 1. **Clone the project and navigate to the directory:**
 
    ```bash
-   git clone https://github.com/yourusername/resume-ranking-system.git
-   cd resume-ranking-system
+      git clone -b main_Updated https://github.com/m-noumanfazil/KAABIL-LENS.git --single-branch
+      cd KAABIL-LENS
    ```
 
 2. **Set up a virtual environment (venv):**
 
    ```bash
-   python -m venv venv
+      python -m venv venv
    ```
 
    * Activate the environment:
@@ -198,7 +208,7 @@ Each candidate includes an expandable section for:
 
      ```bash
      pip install -r requirements.txt
-     cd frontend
+     cd web_frontend
      npm install
      ```
 
@@ -220,6 +230,7 @@ Each candidate includes an expandable section for:
 5. **Run the project (backend + frontend together):**
 
    ```bash
+   cd ..
    python run.py
    ```
 
@@ -238,7 +249,7 @@ Each candidate includes an expandable section for:
    **Frontend only:**
 
    ```bash
-   cd frontend
+   cd web_frontend
    npm run dev
    ```
 
@@ -252,19 +263,6 @@ Without this system, an individual or HR team would face:
 * Risk of hiring mismatched candidates
 
 This system removes manual bias, ensures transparency, and reduces evaluation time dramatically.
-
----
-
-## ⚙ Installation
-
-```bash
-git clone -b main_Updated https://github.com/m-noumanfazil/KAABIL-LENS.git --single-branch
-cd KAABIL-LENS
-pip install -r requirements.txt
-
-# Run the application
-python run.py
-```
 
 ---
 

@@ -1,3 +1,6 @@
+// 0xb800.Venom Mustafa
+
+
 "use client";
 
 import { useState } from "react";
@@ -24,7 +27,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
         <div className="intro-logo">
           <div className="logo-wrapper">
             <Image
-              src="/logo1.png"
+              src="/logo.png"
               alt="Kaabil Lens Logo"
               width={350}
               height={300}

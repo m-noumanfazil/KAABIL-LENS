@@ -1,4 +1,6 @@
-// frontend/lib/api.ts
+// 0xb800.Venom Mustafa
+
+// frontend/lib/api.ts can be any port 
 export const BASE_URL = "http://localhost:8000";
 
 export async function uploadResumes(files: File[]) {
@@ -16,7 +18,7 @@ export async function uploadResumes(files: File[]) {
   return res.json();
 }
 
-// helper for job description analysis
+// helper for jda
 export async function analyzeJobDescription(jdText: string) {
   const formData = new FormData();
   formData.append("jd_text", jdText);

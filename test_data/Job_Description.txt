@@ -12,3 +12,5 @@ Requirements:
 - Proficient in Python, Docker, Kubernetes, AWS Lambda, CI/CD.
 - Familiarity with event-driven architecture.
 - Ability to assist in microservices deployment and cloud workflow orchestration.
+
+#0xb800.Venom Mustafa

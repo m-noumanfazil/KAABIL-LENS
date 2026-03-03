@@ -1,26 +1,24 @@
+#0xb800.Venom Mustafa
 import subprocess
 import os
 import signal
 import sys
 
 BACKEND_DIR = "backend"
-FRONTEND_DIR = "frontend"
-
-UVICORN_PATH = os.path.join("venv", "bin", "uvicorn")
+FRONTEND_DIR = "web_frontend"
 
 processes = []
 
 def start():
     print("[+] Starting Backend...")
     backend = subprocess.Popen(
-        [UVICORN_PATH, "backend_api:app", "--reload"],
-        cwd=BACKEND_DIR
+        ["uvicorn", "backend_api:app", "--reload", "--app-dir", BACKEND_DIR]
     )
     processes.append(backend)
 
     print("[+] Starting Frontend...")
     frontend = subprocess.Popen(
-        ["npm", "run", "dev"],
+        ["npm", "run", "start"],
         cwd=FRONTEND_DIR
     )
     processes.append(frontend)
@@ -35,10 +33,10 @@ def shutdown(signum, frame):
 
 
 if __name__ == "__main__":
+    # Handle Ctrl+C, Ctrl+Z dono tigger
     signal.signal(signal.SIGINT, shutdown)
     signal.signal(signal.SIGTERM, shutdown)
-    signal.signal(signal.SIGTSTP, shutdown)  # Handles Ctrl+Z
-
+    signal.signal(signal.SIGTSTP, shutdown)
 
     start()
 
