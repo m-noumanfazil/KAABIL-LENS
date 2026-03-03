@@ -258,8 +258,8 @@ This system removes manual bias, ensures transparency, and reduces evaluation ti
 ## ⚙ Installation
 
 ```bash
-git clone https://github.com/yourusername/resume-ranking-system.git
-cd resume-ranking-system
+git clone -b main_Updated https://github.com/m-noumanfazil/KAABIL-LENS.git --single-branch
+cd KAABIL-LENS
 pip install -r requirements.txt
 
 # Run the application
