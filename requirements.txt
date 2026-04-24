@@ -2,7 +2,5 @@
 dotenv
 groq
 streamlit
-re
 json
-re
 pandas
